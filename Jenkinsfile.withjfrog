@@ -8,13 +8,13 @@ node {
   stage('build') {
      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
        sh "#!/bin/ash \n" +
-          "cd complete \&\& \.\/gradlew build"
+          "cd complete && ./gradlew build"
      }
   }
   stage('test') {
      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-       sh "#!/bin/ash \n" +
-          "cd complete \&\& \.\/gradlew test"
+       sh "#!/bin/ash \n' "
+          "cd complete && ./gradlew test"
      }
   }
   stage('publish') {
