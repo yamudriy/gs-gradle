@@ -1,20 +1,18 @@
 node {
   def server = Artifactory.server 'coolhause.jfrog.io'
-  def myGradleContainer = docker.image('gradle:jdk8-alpine')
+  def myGradleContainer = docker.image('gradle:jdk8-slim')
   myGradleContainer.pull()
   stage('prep') {
     checkout scm
   }
   stage('build') {
      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-       sh "#!/bin/ash \n" +
-          "cd complete && ./gradlew build"
+       sh "cd complete && ./gradlew build"
      }
   }
   stage('test') {
      myGradleContainer.inside("-v ${env.HOME}/.gradle:/home/gradle/.gradle") {
-       sh "#!/bin/ash \n' "
-          "cd complete && ./gradlew test"
+       sh "cd complete && ./gradlew test"
      }
   }
   stage('publish') {
